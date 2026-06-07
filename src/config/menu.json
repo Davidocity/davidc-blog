@@ -1,0 +1,22 @@
+{
+  "main": [
+    {
+      "name": "",
+      "url": "/"
+    },
+    {
+      "name": "contact",
+      "url": "/about"
+    }
+  ],
+  "footer": [
+    {
+      "name": "",
+      "url": ""
+    },
+    {
+      "name": "",
+      "url": ""
+    }
+  ]
+}
