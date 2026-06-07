@@ -1,83 +1,105 @@
 ---
+import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
-import { FaLinkedin } from "react-icons/fa";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+
+const posts = await getSinglePage("posts");
+const sortedPosts = sortByDate(posts);
+
+const formatDate = (date: Date | string) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+
+  return `${year}.${month}.${day}`;
+};
 ---
 
 <Base
-  title="David C. Cantrell's website"
-  description="The personal website of David C. Cantrell."
+  title={config.site.title}
+  description={config.metadata.meta_description}
   hideSidebar={true}
 >
-  <section class="personal-home">
-    <div class="personal-home__image">
-      <img
-        src="/images/david-line-drawing.webp"
-        alt="Line drawing of David C. Cantrell"
-      />
-    </div>
+  <section class="home-posts">
+    <ul class="post-list">
+      {
+        sortedPosts.map((post) => (
+          <li class="post-list-item">
+            <time datetime={post.data.date}>
+              {formatDate(post.data.date)}
+            </time>
 
-    <div class="personal-home__content">
-      <h1>David C. Cantrell</h1>
+            <a href={`/blog/${post.id}`} class="post-title">
+              {post.data.title}
+            </a>
 
-      <p>
-        I’m a veteran digital marketing executive and entrepreneur with a decades-long connection to Japan, now living in Kyushu.
-      </p>
-
-      <div class="social-links">
-  <a
-    href="https://www.linkedin.com/in/davidcantrell/"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="linkedin-link"
-  >
-    <FaLinkedin className="linkedin-icon" />
-    <span>LinkedIn</span>
-  </a>
-</div>
-
-    </div>
+            {post.data.categories && (
+              <span class="post-category">
+                {Array.isArray(post.data.categories)
+                  ? post.data.categories[0]
+                  : post.data.categories}
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </Base>
 
 <style>
-  .personal-home {
+  .home-posts {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-list-item {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 4rem;
-    align-items: start;
-    padding: 5rem 0 0;
+    grid-template-columns: 8rem 1fr auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   }
 
-  .personal-home__image img {
-    width: 100%;
-    max-width: 320px;
+  .post-list-item time {
+    font-size: 0.95rem;
+    color: #666;
+    white-space: nowrap;
   }
 
-  .personal-home__content {
-    max-width: 720px;
+  .post-title {
+    color: #1a1a1a;
+    text-decoration: none;
   }
 
-  .personal-home__content h1 {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    line-height: 1.05;
-    margin-bottom: 1.5rem;
+  .post-title:hover {
+    color: var(--color-primary);
   }
 
-  .personal-home__content p {
-    font-size: 1.15rem;
-    line-height: 1.75;
-    color: #333;
+  .post-category {
+    font-size: 0.9rem;
+    color: #666;
+    white-space: nowrap;
   }
 
   @media (max-width: 768px) {
-    .personal-home {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      padding: 3rem 0 5rem;
+    .home-posts {
+      padding-top: 2rem;
     }
 
-    .personal-home__image img {
-      max-width: 220px;
+    .post-list-item {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      padding: 1rem 0;
     }
   }
 </style>
