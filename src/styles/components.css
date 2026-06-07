@@ -5,7 +5,7 @@
 
 /* container */
 .container {
-  @apply max-w-[1300px] mx-auto px-[25px];
+  @apply max-w-[800px] mx-auto;
 }
 
 /* page heading */
@@ -248,19 +248,19 @@ header {
 
 /* archive posts */
 .archive-title {
-  font-size: 24px;
+  font-size: 17px;
   line-height: 1.25;
   font-weight: 600;
 }
 
 .post-meta {
   color: #555;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 @media (min-width: 768px) {
   .archive-title {
-    font-size: 24px;
+    font-size: 17px;
   }
 }
 
@@ -372,7 +372,7 @@ header {
 }
 
 .post-title {
-  font-size: 32px;
+  font-size: 30px;
   line-height: 1.15;
   font-weight: 700;
   letter-spacing: -0.015em;
@@ -380,7 +380,7 @@ header {
 
 @media (min-width: 768px) {
   .post-title {
-    font-size: 40px;
+    font-size: 30px;
   }
 }
 
@@ -516,4 +516,15 @@ header {
   max-width: 95vw;
   max-height: 85vh;
   object-fit: contain;
+}
+
+.home-post-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.home-post-title:hover {
+  color: var(--color-primary);
 }

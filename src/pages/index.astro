@@ -31,7 +31,7 @@ const formatDate = (date: Date | string) => {
               {formatDate(post.data.date)}
             </time>
 
-            <a href={`/blog/${post.id}`} class="post-title">
+            <a href={`/blog/${post.id}`} class="home-post-title">
               {post.data.title}
             </a>
 
@@ -51,6 +51,8 @@ const formatDate = (date: Date | string) => {
 
 <style>
   .home-posts {
+    max-width: 800px;
+    margin: 0 auto;
     padding-top: 3rem;
     padding-bottom: 5rem;
   }
@@ -76,17 +78,19 @@ const formatDate = (date: Date | string) => {
     white-space: nowrap;
   }
 
-  .post-title {
+  .home-post-title {
+    font-size: 0.95rem;
+    font-weight: 700;
     color: #1a1a1a;
     text-decoration: none;
   }
 
-  .post-title:hover {
+  .home-post-title:hover {
     color: var(--color-primary);
   }
 
   .post-category {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #666;
     white-space: nowrap;
   }
@@ -94,6 +98,7 @@ const formatDate = (date: Date | string) => {
   @media (max-width: 768px) {
     .home-posts {
       padding-top: 2rem;
+      padding-bottom: 3rem;
     }
 
     .post-list-item {
